@@ -1,6 +1,11 @@
+// Sorting only the odd numbers in the array
+
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func main() {
 	var totalElement int
@@ -30,18 +35,26 @@ func newSorting(items []int) {
 	var temp []int
 	temp = items
 	var itemsLen = len(temp)
-	odd := make([]int, itemsLen, itemsLen)
-	var c = 0
+	var odd []int
 
 	for i := 0; i < itemsLen; i++ {
 		if items[i]%2 == 0 {
 			fmt.Println("Even")
 		} else {
-			odd[c] = items[i]
-			c = c + 1
-			items[i] = 0
+			odd = append(odd, items[i])
+			items[i] = 1
 		}
 	}
-	fmt.Printf("item, %d", items)
-	fmt.Printf("odd, %d", odd)
+	sort.Ints(odd)
+	sorting(temp, odd)
+}
+func sorting(temp, odd []int) {
+	var c = 0
+	for i := 0; i < len(temp); i++ {
+		if temp[i] == 1 {
+			temp[i] = odd[c]
+			c = c + 1
+		}
+	}
+	fmt.Println("temp:", temp)
 }
